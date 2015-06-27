@@ -40,7 +40,8 @@ int gst_video_fmtp_enc(struct mbuf *mb, const struct sdp_format *fmt,
 			   " packetization-mode=0"
 			   ";profile-level-id=%02x%02x%02x"
 			   "\r\n",
-			   fmt->id, profile_idc, profile_iop, h264_level_idc);
+			   fmt->id, profile_idc, profile_iop,
+			   gst_video_h264_level_idc);
 }
 
 

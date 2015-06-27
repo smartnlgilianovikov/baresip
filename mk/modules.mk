@@ -21,6 +21,7 @@
 #   USE_G726          G.726 audio codec
 #   USE_GSM           GSM audio codec
 #   USE_GST           Gstreamer audio module
+#   USE_GST_VIDEO     Gstreamer video module
 #   USE_ILBC          iLBC audio codec
 #   USE_ISAC          iSAC audio codec
 #   USE_L16           L16 audio codec
@@ -95,6 +96,8 @@ USE_GSM := $(shell [ -f $(SYSROOT)/include/gsm.h ] || \
 	[ -f $(SYSROOT)/local/include/gsm.h ] || \
 	[ -f $(SYSROOT)/local/include/gsm/gsm.h ] && echo "yes")
 USE_GST := $(shell [ -f $(SYSROOT)/include/gstreamer-1.0/gst/gst.h ] || \
+	[ -f $(SYSROOT_ALT)/include/gstreamer-1.0/gst/gst.h ] && echo "yes")
+USE_GST_VIDEO := $(shell [ -f $(SYSROOT)/include/gstreamer-1.0/gst/gst.h ] || \
 	[ -f $(SYSROOT_ALT)/include/gstreamer-1.0/gst/gst.h ] && echo "yes")
 USE_ILBC := $(shell [ -f $(SYSROOT)/include/iLBC_define.h ] || \
 	[ -f $(SYSROOT)/local/include/iLBC_define.h ] && echo "yes")
@@ -284,6 +287,9 @@ MODULES   += gsm
 endif
 ifneq ($(USE_GST),)
 MODULES   += gst
+endif
+ifneq ($(USE_GST_VIDEO),)
+MODULES   += gst_video
 endif
 ifneq ($(USE_ILBC),)
 MODULES   += ilbc

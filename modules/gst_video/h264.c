@@ -38,7 +38,7 @@ enum {
 };
 
 
-const uint8_t h264_level_idc = 0x0c;
+const uint8_t gst_video_h264_level_idc = 0x0c;
 
 
 /*
@@ -130,9 +130,9 @@ static int h264_nal_send(bool first, bool last,
 }
 
 
-int h264_packetize(const uint8_t *buf, size_t len,
-		   size_t pktsize,
-		   videnc_packet_h *pkth, void *arg)
+int gst_video_h264_packetize(const uint8_t *buf, size_t len,
+			     size_t pktsize,
+			     videnc_packet_h *pkth, void *arg)
 {
 	const uint8_t *start = buf;
 	const uint8_t *end   = start + len;
