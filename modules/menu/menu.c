@@ -8,6 +8,16 @@
 #include <baresip.h>
 
 
+/**
+ * @defgroup menu menu
+ *
+ * Interactive menu
+ *
+ * This module must be loaded if you want to use the interactive menu
+ * to control the Baresip application.
+ */
+
+
 /** Defines the status modes */
 enum statmode {
 	STATMODE_CALL = 0,
@@ -361,6 +371,8 @@ static int cmd_ua_next(struct re_printf *pf, void *unused)
 
 	if (!le_cur)
 		le_cur = list_head(uag_list());
+	if (!le_cur)
+		return 0;
 
 	le_cur = le_cur->next ? le_cur->next : list_head(uag_list());
 
