@@ -35,6 +35,8 @@
 #   USE_OSS           OSS audio driver
 #   USE_PLC           Packet Loss Concealment
 #   USE_PORTAUDIO     Portaudio audio driver
+#   USE_PULSE         Pulseaudio audio driver
+#   USE_NETAUDIO      Net audio driver
 #   USE_SDL           libSDL video output
 #   USE_SILK          SILK (Skype) audio codec
 #   USE_SNDFILE       sndfile wav dumper
@@ -124,6 +126,8 @@ USE_OSS := $(shell [ -f $(SYSROOT)/include/soundcard.h ] || \
 USE_PLC := $(shell [ -f $(SYSROOT)/include/spandsp/plc.h ] || \
 	[ -f $(SYSROOT_ALT)/include/spandsp/plc.h ] || \
 	[ -f $(SYSROOT)/local/include/spandsp/plc.h ] && echo "yes")
+USE_PULSE := $(shell pkg-config --exists libpulse && echo "yes")
+USE_NETAUDIO := 1
 USE_PORTAUDIO := $(shell [ -f $(SYSROOT)/local/include/portaudio.h ] || \
 		[ -f $(SYSROOT)/include/portaudio.h ] || \
 		[ -f $(SYSROOT_ALT)/include/portaudio.h ] && echo "yes")
@@ -354,6 +358,12 @@ MODULES   += plc
 endif
 ifneq ($(USE_PORTAUDIO),)
 MODULES   += portaudio
+endif
+ifneq ($(USE_PULSE),)
+MODULES   += pulse
+endif
+ifneq ($(USE_NETAUDIO),)
+MODULES   += netaudio
 endif
 ifneq ($(USE_SDL),)
 MODULES   += sdl
